@@ -68,7 +68,7 @@
         
         h1 {
             color: white;
-            font-size: 2rem;
+            font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 5px;
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
@@ -76,7 +76,7 @@
         
         .subtitle {
             color: #c8e6c9;
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 300;
         }
         
@@ -630,47 +630,56 @@
             z-index: 1000;
             backdrop-filter: blur(5px);
             border: 1px solid var(--card-border);
+            max-width: 200px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         
         .zone-info {
-            position: absolute;
-            bottom: 15px;
-            right: 15px;
-            background: var(--card-bg);
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            z-index: 1000;
-            backdrop-filter: blur(5px);
-            border: 1px solid var(--card-border);
+  position: absolute;
+    bottom: 0;
+    right: 15px;
+    background: var(--card-bg);
+    padding: 8px 20px;
+    border-radius: 6px 6px 0 0;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+    border: 1px solid var(--card-border);
+    border-bottom: none;
+    min-width: 120px;
+    text-align: center;
         }
         
-        .map-controls {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            z-index: 1000;
-            display: flex;
-            gap: 10px;
-        }
-        
-        .map-btn {
-            background: var(--card-bg);
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            backdrop-filter: blur(5px);
-            border: 1px solid var(--card-border);
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.8rem;
-        }
+	.map-controls {
+	    position: absolute;
+ 	   top: 15px;
+ 	   right: 15px;
+ 	   z-index: 1000;
+	  	  display: flex;
+	    flex-direction: column;
+ 	   gap: 10px;
+	}
+	
+	.map-btn {
+ 	   background: var(--card-bg);
+  	  color: white;
+ 	   border: none;
+  	  padding: 12px;
+  	  border-radius: 6px;
+  	  cursor: pointer;
+  	  font-weight: 600;
+  	  backdrop-filter: blur(5px);
+  	  border: 1px solid var(--card-border);
+   	 transition: all 0.3s ease;
+  	  display: flex;
+   	 align-items: center;
+  	  justify-content: center;
+   	 width: 44px;
+   	 height: 44px;
+	}
         
         .map-btn:hover {
             background: rgba(60, 80, 60, 0.9);
@@ -764,6 +773,7 @@
                 height: 40vh;
                 border-left: none;
                 border-top: 2px solid var(--card-border);
+                padding: 15px;
             }
             
             .map-container {
@@ -772,6 +782,99 @@
             
             .plant-options-compact {
                 grid-template-columns: 1fr 1fr;
+            }
+            
+            .map-controls {
+                top: 10px;
+                right: 10px;
+            }
+            
+            .map-type-selector {
+                top: 10px;
+                left: 10px;
+            }
+            
+            .location-info, .zone-info {
+                bottom: 10px;
+                font-size: 0.7rem;
+                padding: 6px 10px;
+            }
+            
+            .location-info {
+                left: 10px;
+                max-width: 150px;
+            }
+            
+            .zone-info {
+        right: 10px;
+        padding: 6px 15px;
+        font-size: 0.7rem;
+        min-width: 100px;
+            }
+            
+            .map-btn {
+                padding: 8px 12px;
+                font-size: 0.7rem;
+            }
+            
+            h1 {
+                font-size: 1.3rem;
+            }
+            
+            .subtitle {
+                font-size: 0.8rem;
+            }
+            
+            .resources-panel {
+                gap: 8px;
+            }
+            
+            .resource {
+                padding: 10px;
+            }
+            
+            .resource-icon {
+                font-size: 20px;
+                width: 35px;
+                height: 35px;
+            }
+            
+            .resource-amount {
+                font-size: 1rem;
+            }
+            
+            .action-btn {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+        }
+        
+        /* Дополнительные стили для очень маленьких экранов */
+        @media (max-width: 480px) {
+            .location-info {
+                display: none; /* Скрываем координаты на очень маленьких экранах */
+            }
+            
+            .zone-info {
+                font-size: 0.65rem;
+                padding: 5px 8px;
+            }
+            
+            .map-btn {
+                padding: 6px 10px;
+            }
+            
+            .map-type-btn {
+                padding: 4px 8px;
+                font-size: 0.7rem;
+            }
+            
+            .control-panel {
+                padding: 10px;
+            }
+            
+            .plant-options-compact {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -795,17 +898,17 @@
                     <button class="map-type-btn" data-type="satellite">Спутник</button>
                     <button class="map-type-btn" data-type="dark">Темная</button>
                 </div>
-                <div class="map-controls">
-                    <button class="map-btn" id="locateBtn">
-                        <i class="fas fa-location-crosshairs"></i> Мое местоположение
-                    </button>
-                </div>
+		<div class="map-controls">
+		    <button class="map-btn" id="locateBtn" title="Мое местоположение">
+ 		       <i class="fas fa-location-crosshairs"></i>
+		   </button>
+		</div>
                 <div class="location-info" id="locationInfo">
                     <i class="fas fa-compass"></i> Ожидание геолокации...
                 </div>
-                <div class="zone-info" id="zoneInfo">
-                    <i class="fas fa-bullseye"></i> Зона сбора: 40м
-                </div>
+		<div class="zone-info" id="zoneInfo">
+		    <i class="fas fa-bullseye"></i> Зона сбора: 40 метров
+		</div>
                 
                 <div class="permission-check" id="permissionCheck">
                     <h3><i class="fas fa-map-marked-alt"></i> Доступ к геолокации</h3>
@@ -1368,8 +1471,8 @@
                             .bindPopup(`Ваше местоположение (точность: ${Math.round(accuracy)}м)`)
                             .openPopup();
                         
-                        
-                        locationInfoEl.textContent = `Широта: ${lat.toFixed(6)}, Долгота: ${lng.toFixed(6)} (точность: ${Math.round(accuracy)}м)`;
+                        // Упрощенная информация о местоположении
+                        locationInfoEl.textContent = `Точность: ${Math.round(accuracy)}м`;
                         locateBtn.disabled = false;
                         renderPlants();
                         hidePermissionRequest();
